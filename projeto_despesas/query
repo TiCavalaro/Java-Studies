@@ -1,0 +1,11 @@
+﻿CREATE TABLE Despesa (
+	id_despesa serial,
+	descricao varchar(50),
+	valor float,
+	data varchar(10)
+	conta varchar(30),
+	categoria varchar(30),
+	situacao varchar(30),
+	anotacao varchar(200),
+	CONSTRAINT despesa_pkey PRIMARY KEY (id_despesa)
+)

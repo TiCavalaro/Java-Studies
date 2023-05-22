@@ -1,0 +1,65 @@
+CREATE TABLE dono(
+	id_dono serial,
+	nome_dono character varying(30),
+	cpf_dono character varying (15) unique,
+	sexo_dono character varying(15),
+	nasc_dono date,
+	tel_dono character varying(15),
+	rua_dono character varying(30),
+	num_dono integer,
+	bairro_dono character varying(30),
+	cep_dono character varying(9),
+	cidade_dono character varying(30),
+	estado_dono character varying(2),
+	CONSTRAINT dono_pkey PRIMARY KEY (id_dono)
+);
+
+CREATE TABLE pet(
+	id_pet serial,
+	nome_pet character varying(30),
+	rga_pet character varying(15) unique,
+	sexo_pet character varying(5),
+	nasc_pet date,
+	raca_pet character varying(30),
+	cor_pet character varying(30), 
+	id_dono integer,
+	CONSTRAINT pet_pkey PRIMARY KEY (id_pet),
+	CONSTRAINT pet_id_dono_fkey FOREIGN KEY (id_dono) REFERENCES dono (id_dono)
+);
+
+CREATE TABLE veterinario(
+	id_vet serial,
+	nome_vet character varying(30),
+	cpf_vet character varying(9) unique,
+	sexo_vet character varying(15),
+	nasc_vet date,
+	tel_vet character varying(15),
+	rua_vet character varying(30),
+	num_vet integer,
+	bairro_vet  character varying(30),
+	cep_vet character varying(9),
+	cidade_vet character varying(30),
+	estado_vet character varying(2),
+	crmv_vet character varying(15),
+	especialidade_vet character varying(30),
+	CONSTRAINT veterinario_pkey PRIMARY KEY (id_vet)
+);
+
+CREATE TABLE consulta(
+	id_consulta serial,
+	tipo_consulta varchar(50),
+	valor_consulta double precision,
+	id_vet integer,
+	CONSTRAINT consulta_pkey PRIMARY KEY (id_consulta),
+	CONSTRAINT consulta_id_veterinario_fkey FOREIGN KEY (id_vet) REFERENCES veterinario(id_vet)
+);
+
+CREATE TABLE consulta_pet(
+	data_consulta date,
+	hora_consulta time,
+	id_pet integer,
+	id_consulta integer,
+	CONSTRAINT consulta_pet_id_pet_fkey FOREIGN KEY (id_pet) REFERENCES pet(id_pet),
+	CONSTRAINT consulta_pet_id_consulta_fkey FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
+)
+select  * from dono
